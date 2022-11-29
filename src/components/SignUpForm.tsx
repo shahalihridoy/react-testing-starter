@@ -1,24 +1,24 @@
-import React from "react";
-import { useService } from "@xstate/react";
-import { Interpreter } from "xstate";
-import { Link } from "react-router-dom";
 import {
+  Box,
   Button,
   Container,
   CssBaseline,
-  TextField,
   Grid,
-  Box,
-  Typography,
   makeStyles,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-import { Formik, Form, Field, FieldProps } from "formik";
-import { string, object, ref } from "yup";
+import { useService } from "@xstate/react";
+import { Field, FieldProps, Form, Formik } from "formik";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Interpreter } from "xstate";
+import { object, ref, string } from "yup";
 
-import RWALogo from "./SvgRwaLogo";
-import Footer from "./Footer";
-import { SignUpPayload } from "../models";
 import { AuthMachineContext, AuthMachineEvents } from "../machines/authMachine";
+import { SignUpPayload } from "../models";
+import Footer from "./Footer";
+import RWALogo from "./SvgRwaLogo";
 
 const validationSchema = object({
   firstName: string().required("First Name is required"),
@@ -182,7 +182,7 @@ const SignUpForm: React.FC<Props> = ({ authService }) => {
                 color="primary"
                 className={classes.submit}
                 data-test="signup-submit"
-                disabled={!isValid || isSubmitting}
+                disabled={!(isValid && dirty) || isSubmitting}
               >
                 Sign Up
               </Button>
